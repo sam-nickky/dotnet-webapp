@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app
+  labels:
+    app: dotnet
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dotnet
+
+  template:
+    metadata:
+      name: test
+      labels:
+        app: dotnet
+    spec:
+      containers:
+      - name: test
+        image: ghcr.io/benc-uk/dotnet-demoapp:latest
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-svc
+spec:
+  selector:
+    app: dotnet
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: NodePort
+
