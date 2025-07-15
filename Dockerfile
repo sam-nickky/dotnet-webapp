@@ -23,7 +23,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# ✅ Force ASP.NET Core to listen on port 5000
+# Force ASP.NET Core to listen on port 5000
 ENV DOTNET_URLS=http://+:5000
 
 # Expose port 5000
